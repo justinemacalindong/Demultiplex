@@ -1,0 +1,76 @@
+Demultiplexing - Lab Notebook - Justine Macalindong
+-----------------------------------------------------------------------------------------------------------------------------------------------------
+July 26th, 2022 - Assignment the first assigned
+-----------------------------------------------------------------------------------------------------------------------------------------------------
+
+# Notes from Leslie's Lecture 
+    - first read in each file is from the first cluster
+    - parse files all at the same time
+    - if they are the same index, export to match file 
+    - #4_R1.fq, $4_R2.fq,
+    - use DNA sequence not index letters and numbers
+    - 48 files, one for read 1 and one for read 2
+    - 2 fastq files for non-matching index pairs
+    - 2 fastq files for index reads that don't match
+    - 52 files in total
+    - should not lose any data, same counts
+
+Determining read length and label of each file
+    zcat 1294_S1_L008_R1_001.fastq.gz  | head -2 | tail -1 | wc 
+        1       1     102 <- read1
+    zcat 1294_S1_L008_R2_001.fastq.gz  | head -2 | tail -1 | wc
+        1       1       9 <- index1
+    zcat 1294_S1_L008_R3_001.fastq.gz  | head -2 | tail -1 | wc
+        1       1       9 <- index2
+    zcat 1294_S1_L008_R4_001.fastq.gz  | head -2 | tail -1 | wc
+        1       1     102  <- read2
+
+File exploration
+    zcat 1294_S1_L008_R1_001.fastq.gz | head 
+        @K00337:83:HJKJNBBXX:8:1101:1265:1191 1:N:0:1
+        GNCTGGCATTCCCAGAGACATCAGTACCCAGTTGGTTCAGACAGTTCCTCTATTGGTTGACAAGGTCTTCATTTCTAGTGATATCAACACGGTGTCTACAA
+        +
+        A#A-<FJJJ<JJJJJJJJJJJJJJJJJFJJJJFFJJFJJJAJJJJ-AJJJJJJJFFJJJJJJFFA-7<AJJJFFAJJJJJF<F--JJJJJJF-A-F7JJJJ
+        @K00337:83:HJKJNBBXX:8:1101:1286:1191 1:N:0:1
+        CNACCTGTCCCCAGCTCACAGGACAGCACACCAAAGGCGGCAACCCACACCCAGTTTTACAGCCACACAGTGCCTTGTTTTACTTGAGGACCCCCCACTCC
+        +
+        A#AAFJJJJJJJJJJFJJJJJJJJJJJJJJJJJJJJJJJJFJJJJJJJJJJJJJJAJJJJJJJJJJJJJJFJJJJJFFFFJJJJJJJJJJJJJJJJJJ77F
+        @K00337:83:HJKJNBBXX:8:1101:1347:1191 1:N:0:1
+        GNGGTCTTCTACCTTTCTCTTCTTTTTTGGAGGAGTAGAATGTTGAGAGTCAGCAGTAGCCTCATCATCACTAGATGGCATTTCTTCTGAGCAAAACAGGT
+
+    zcat 1294_S1_L008_R2_001.fastq.gz | head
+        @K00337:83:HJKJNBBXX:8:1101:1265:1191 2:N:0:1
+        NCTTCGAC
+        +
+        #AA<FJJJ
+        @K00337:83:HJKJNBBXX:8:1101:1286:1191 2:N:0:1
+        NACAGCGA
+        +
+        #AAAFJJJ
+        @K00337:83:HJKJNBBXX:8:1101:1347:1191 2:N:0:1
+        NTCCTAAG
+
+    @K00337:83:HJKJNBBXX:8:1101:1265:1191 3:N:0:1
+        NTCGAAGA
+        +
+        #AAAAJJF
+        @K00337:83:HJKJNBBXX:8:1101:1286:1191 3:N:0:1
+        NCGCTGTT
+        +
+        #AAAFJ-A
+        @K00337:83:HJKJNBBXX:8:1101:1347:1191 3:N:0:1
+        NTTAGGAC
+
+    zcat 1294_S1_L008_R4_001.fastq.gz | head
+        @K00337:83:HJKJNBBXX:8:1101:1265:1191 4:N:0:1
+        NTTTTGATTTACCTTTCAGCCAATGAGAAGGCCGTTCATGCAGACTTTTTTAATGATTTTGAAGACCTTTTTGATGATGATGATGTCCAGTGAGGCCTCCC
+        +
+        #AAFAFJJ-----F---7-<FA-F<AFFA-JJJ77<FJFJFJJJJJJJJJJAFJFFAJJJJJJJJFJF7-AFFJJ7F7JFJJFJ7FFF--A<A7<-A-7--
+        @K00337:83:HJKJNBBXX:8:1101:1286:1191 4:N:0:1
+        NTGTGTAGACAAAAGTTTTCATGAGTCTGTAAGCTGTCTATTGTCTCCTGAAAAGAAACCAGAAGTTTTCCCCTAAATGTGTTTAGAATGCTTATTCTAAT
+        +
+        #A-AFFJJFJJJJJJJJJJJJJJJJ<JAJFJJJJF<JFJJJAJJJJJJJJJJJJJJJJJJJFJJJAJJFJJJFJJJF<JJA-JJJ-<AFAF--FF<JAFJF
+        @K00337:83:HJKJNBBXX:8:1101:1347:1191 4:N:0:1
+        NAAATGCCATCTAGTGATGATGAGGCTACTGCTGACTCTCAACATTCTACTCCTCCAAAAAAGAAGAGAAAGATTCCAACCCCCAGAACCGATGACCGGCA
+
+
