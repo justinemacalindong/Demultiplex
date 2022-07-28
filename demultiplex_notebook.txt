@@ -2,6 +2,7 @@ Demultiplexing - Lab Notebook - Justine Macalindong
 -----------------------------------------------------------------------------------------------------------------------------------------------------
 July 26th, 2022 - Assignment the first assigned
 -----------------------------------------------------------------------------------------------------------------------------------------------------
+Collaboration: Justine Macalindong, Rachel, Lisa, Kaitlyn, and Jessica
 
 # Notes from Leslie's Lecture 
     - first read in each file is from the first cluster
@@ -73,4 +74,134 @@ File exploration
         @K00337:83:HJKJNBBXX:8:1101:1347:1191 4:N:0:1
         NAAATGCCATCTAGTGATGATGAGGCTACTGCTGACTCTCAACATTCTACTCCTCCAAAAAAGAAGAGAAAGATTCCAACCCCCAGAACCGATGACCGGCA
 
+Christian's suggestion:
+    Indexes don't match -> Reverse compliment? :O
 
+I'm going to try using the method of calculating mean using numpy from PS9. I made a test file to check if my code works. 
+
+Looks like the code works! Going to try it on the big files.
+
+Looks like the script is failing for the read files, but the index files are still working. The error seems to be a memory issue due to the numpy array. Going to switch up my strategy.
+
+Decided to use the method of calculating mean by hand using PS4. Worked on the test file, now going to run on the big file. 
+(script stored in script_the_first.py)
+
+Running sbatch_the_first.sh on read1
+	Command being timed: "/projects/bgmp/justinem/bioinfo/Bi622/Demultiplex/Assignment-the-first/script_the_first.py -f /projects/bgmp/shared/2017_sequencing/1294_S1_L008_R1_001.fastq.gz -pn R1_1.png -r 101 -pt 1294_S1_L008_R1_001.fastq.gz"
+	User time (seconds): 7159.92
+	System time (seconds): 2.11
+	Percent of CPU this job got: 100%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 1:59:21
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 65512
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 0
+	Minor (reclaiming a frame) page faults: 57702
+	Voluntary context switches: 502
+	Involuntary context switches: 38796
+	Swaps: 0
+	File system inputs: 0
+	File system outputs: 0
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0
+
+Running sbatch_the_first.sh on index1
+    Command being timed: "/projects/bgmp/justinem/bioinfo/Bi622/Demultiplex/Assignment-the-first/script_the_first.py -f /projects/bgmp/shared/2017_sequencing/1294_S1_L008_R2_001.fastq.gz -pn R2.png -r 8 -pt 1294_S1_L008_R2_001.fastq.gz"
+	User time (seconds): 1289.80
+	System time (seconds): 1.95
+	Percent of CPU this job got: 98%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 21:50.31
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 60584
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 0
+	Minor (reclaiming a frame) page faults: 40861
+	Voluntary context switches: 2490
+	Involuntary context switches: 173719
+	Swaps: 0
+	File system inputs: 0
+	File system outputs: 0
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0
+
+Running sbatch_the_first.sh on index2
+	Command being timed: "/projects/bgmp/justinem/bioinfo/Bi622/Demultiplex/Assignment-the-first/script_the_first.py -f /projects/bgmp/shared/2017_sequencing/1294_S1_L008_R3_001.fastq.gz -pn R3.png -r 8 -pt 1294_S1_L008_R3_001.fastq.gz"
+	User time (seconds): 1325.90
+	System time (seconds): 1.20
+	Percent of CPU this job got: 98%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 22:21.51
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 62636
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 0
+	Minor (reclaiming a frame) page faults: 41670
+	Voluntary context switches: 2515
+	Involuntary context switches: 202850
+	Swaps: 0
+	File system inputs: 0
+	File system outputs: 0
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0
+
+Running sbatch_the_first.sh on read2
+	Command being timed: "/projects/bgmp/justinem/bioinfo/Bi622/Demultiplex/Assignment-the-first/script_the_first.py -f /projects/bgmp/shared/2017_sequencing/1294_S1_L008_R4_001.fastq.gz -pn R4.png -r 101 -pt 1294_S1_L008_R4_001.fastq.gz"
+	User time (seconds): 7206.11
+	System time (seconds): 10.12
+	Percent of CPU this job got: 100%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 2:00:15
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 65004
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 0
+	Minor (reclaiming a frame) page faults: 58206
+	Voluntary context switches: 542
+	Involuntary context switches: 62518
+	Swaps: 0
+	File system inputs: 0
+	File system outputs: 0
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0
+
+The script worked and the graphs look great yay!! :)
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------
+July 27th, 2022 
+-----------------------------------------------------------------------------------------------------------------------------------------------------
+Collaboration: Justine Macalindong, Rachel, Lisa, Kaitlyn, Jessica, Sam O, Palak
+
+Worked with Rachel, Lisa, Kaitlyn, Jessica, Palak, and Sam all morning to come up with pseudocode for the demultiplexing. We spend a lot of time going back and forth on the the order of what phred scoring, comparing indexes, and finding unknowns should come. Finalized on comparing indexes and then converting phred scores. Hopefully this works!
+
+Pseudocode stored in Answers.md. 
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------
+July 28th, 2022 
+-----------------------------------------------------------------------------------------------------------------------------------------------------
+Collaboration: Justine Macalindong, SJ, and Jack
+
+Talked to SJ about the high-level functions that we should be created for our future demultiplexing code. Decided on functions that takes a sequence and takes the reverse compliment of it, converting phred-scores, grabs 4 lines of a FASTQ file at a time, and writes FASTQ lines to a file. 
+
+Created test files with the help of Jack!
