@@ -205,3 +205,5 @@ Collaboration: Justine Macalindong, SJ, and Jack
 Talked to SJ about the high-level functions that we should be created for our future demultiplexing code. Decided on functions that takes a sequence and takes the reverse compliment of it, converting phred-scores, grabs 4 lines of a FASTQ file at a time, and writes FASTQ lines to a file. 
 
 Created test files with the help of Jack!
+
+Done with Assignment-the-first. 
