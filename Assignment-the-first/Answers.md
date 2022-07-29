@@ -39,20 +39,23 @@ zcat 1294_S1_L008_R3_001.fastq.gz | sed -n '2~4p' | grep "N" | wc -l
    - Report the number of read-pairs with properly matched indexes (per index-pair), the number of read pairs with index-hopping observed, and the number of read-pairs with unknown index(es).
 3. Upload your [4 input FASTQ files](../TEST-input_FASTQ) and your [>=6 expected output FASTQ files](../TEST-output_FASTQ).
 4. Pseudocode
-   - Create a set of the known 24 indexes. 
-   - Collect the full 4 lines of each record. 
+    - Create a set of the known 24 indexes. 
+    - Collect the 4 lines of a record and iterate through each record. 
         - Arrays: read1[header,seq,+,Q], read2[header,seq,+,Q], and so on...
-   - Check if the sequence of the nth record in index1 is in the set.
-        - If is not one of the 24 send to "unknown" FASTQ file and unknown_count += 1
-        - If is in the set, check if the reverse compliment of the nth record of index2 is in set.
-        - Convert the phred scores of the index files.
-            - If there is one base that is below 30, put record into "unknown" FASTQ file and unknown_count +=1. 
-        - Save reverse comp to a variable. 
-            - Check if nth record of index1 is equal to the reverse comp of index2 and send to "matched" FASTQ file and matched_count += 1. 
-                - If does not match, send to unmatched and unmatched_count += 1. 
-   - When putting records into respective files, add @header_index_index2(reverse comp). 
-        - Overwriting header: array[0] = array[0] + index, index2(reverse comp)
-        - Writing to the files: fh.write(f"{read1[0]}_{index1[1]}_index2[1]}\n")), fh.write(f"{read[1]}\n{read[2]}\n{read[3]}\n")
+    - Check if the sequence of the "nth" record of index1 is in the set.
+        - If is not one of the 24 known indexes send it and its corresponding record in read1 to the "read1_unknown" FASTQ file and its corresponding record in read2 to the "read2_unknown" FASTQ file.
+            - unknown_count += 1. 
+        - If the index is one of the 24 known indexes in the set, check if the reverse compliment of the "nth" record of index2 is also in set. 
+            - Convert the phred score of each base in the "nth" record of the index1 and index2 sequence.
+                - If there is one base that is below 30 in either the index1 or index2 sequence, put its corresponding read1 record into "read1_unknown" FASTQ file and its corresponding record in read2 into "read2_unknown".
+                    - unknown_count +=1. 
+                    - Check if the sequence of the nth record of index1 is equal to the reverse comp of index2 and send its corresponding read1 record into "read1_matched_"n"" FASTQ file and its corresponding read2 record into "read2_matched_n" FASTQ file. 
+                        - matched_count += 1. 
+                    - If the sequences do not match, send corresponding read1 record into the "read1_unmatched" FASTQ file and the corresponding read2 record into the "read2_unmatched" FASTQ file. 
+                        - unmatched_count += 1. 
+    - When putting records into respective files, add @header_index_index2(reverse comp). 
+            - Overwriting header: array[0] = array[0] + index, index2(reverse comp)
+            - Writing to the files: fh.write(f"{read1[0]}_{index1[1]}_index2[1]}\n")), fh.write(f"{read[1]}\n{read[2]}\n{read[3]}\n")
 5. High level functions. For each function, be sure to include:
    - Reverse Compliment function:
         - Description: Takes a sequence line and writes the reverse compliment of it. 

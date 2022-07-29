@@ -1,0 +1,41 @@
+Justine Macalindong - Pseudocode
+
+- Create a set of the known 24 indexes. 
+- Collect the 4 lines of a record and iterate through each record. 
+    - Arrays: read1[header,seq,+,Q], read2[header,seq,+,Q], and so on...
+- Check if the sequence of the "nth" record of index1 is in the set.
+    - If is not one of the 24 known indexes send it and its corresponding record in read1 to the "read1_unknown" FASTQ file and its corresponding record in read2 to the "read2_unknown" FASTQ file.
+        - unknown_count += 1. 
+    - If the index is one of the 24 known indexes in the set, check if the reverse compliment of the "nth" record of index2 is also in set. 
+        - Convert the phred score of each base in the "nth" record of the index1 and index2 sequence.
+            - If there is one base that is below 30 in either the index1 or index2 sequence, put its corresponding read1 record into "read1_unknown" FASTQ file and its corresponding record in read2 into "read2_unknown".
+                - unknown_count +=1. 
+                - Check if the sequence of the nth record of index1 is equal to the reverse comp of index2 and send its corresponding read1 record into "read1_matched_"n"" FASTQ file and its corresponding read2 record into "read2_matched_n" FASTQ file. 
+                    - matched_count += 1. 
+                - If the sequences do not match, send corresponding read1 record into the "read1_unmatched" FASTQ file and the corresponding read2 record into the "read2_unmatched" FASTQ file. 
+                    - unmatched_count += 1. 
+   - When putting records into respective files, add @header_index_index2(reverse comp). 
+        - Overwriting header: array[0] = array[0] + index, index2(reverse comp)
+        - Writing to the files: fh.write(f"{read1[0]}_{index1[1]}_index2[1]}\n")), fh.write(f"{read[1]}\n{read[2]}\n{read[3]}\n")
+
+High level functions:
+   - Reverse Compliment function:
+        - Description: Takes a sequence line and writes the reverse compliment of it. 
+        - Function header: def rev_comp(sequence_line):
+        - Test examples: Input: AGT, Output: ACT; Input: TGA, Output: TCA, etc. 
+        - Return reverse compliment of the sequence line 
+   - Grab 4 lines of a fastq file at a time function:
+        - Description: Grabs 4 lines of a FASTQ file at a time and stores each one to a variable. 
+        - Function header: def fastq_lines(file):
+        - Test examples: Input: FASTQ file; Output: header, sequence, plus, phred
+        - Return each line variable
+   - Convert phred scores
+        - Description: Converts a single character into a phred score
+        - Function header: convert_phred(letter: str) -> int:
+        - Test examples: Input: I, Output: 40; Input: A, Output: 32
+        - Return converted phred score
+   - Write out the file
+        - Description: Writes 4 lines of a FASTQ file to respective file
+        - Function header: file_write(fastq_read):
+        - Test examples: Input: 4 lines of FASTQ record; Output: respective file
+        - Return files 
