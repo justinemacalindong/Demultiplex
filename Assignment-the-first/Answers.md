@@ -13,7 +13,7 @@
 2. Per-base NT distribution
 
     i. 
-    ![](R1_1.png)
+    ![](R1.png)
     ![](R2.png)
     ![](R3.png)
     ![](R4.png)
