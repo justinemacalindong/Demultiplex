@@ -49,7 +49,7 @@ zcat 1294_S1_L008_R3_001.fastq.gz | sed -n '2~4p' | grep "N" | wc -l
             - Convert the phred score of each base in the "nth" record of the index1 and index2 sequence.
                 - If there is one base that is below 30 in either the index1 or index2 sequence, put its corresponding read1 record into "read1_unknown" FASTQ file and its corresponding record in read2 into "read2_unknown".
                     - unknown_count +=1. 
-                    - Check if the sequence of the nth record of index1 is equal to the reverse comp of index2 and send its corresponding read1 record into "read1_matched_"n"" FASTQ file and its corresponding read2 record into "read2_matched_n" FASTQ file. 
+                    - Check if the sequence of the nth record of index1 is equal to the reverse comp of index2 and send its corresponding read1 record into "read1_index1" FASTQ file and its corresponding read2 record into "read2_index2(reversecomp)" FASTQ file. 
                         - matched_count += 1. 
                     - If the sequences do not match, send corresponding read1 record into the "read1_unmatched" FASTQ file and the corresponding read2 record into the "read2_unmatched" FASTQ file. 
                         - unmatched_count += 1. 

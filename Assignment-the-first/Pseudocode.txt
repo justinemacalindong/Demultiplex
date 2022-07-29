@@ -12,7 +12,7 @@ Justine Macalindong - Pseudocode
                 - unknown_count +=1. 
                 - Check if the sequence of the nth record of index1 is equal to the reverse comp of index2 and send its corresponding read1 record into "read1_matched_"n"" FASTQ file and its corresponding read2 record into "read2_matched_n" FASTQ file. 
                     - matched_count += 1. 
-                - If the sequences do not match, send corresponding read1 record into the "read1_unmatched" FASTQ file and the corresponding read2 record into the "read2_unmatched" FASTQ file. 
+                - If the sequences do not match, send corresponding read1 record into the "read1_index1" FASTQ file and the corresponding read2 record into the "read2_index2(reversecomp)" FASTQ file. 
                     - unmatched_count += 1. 
    - When putting records into respective files, add @header_index_index2(reverse comp). 
         - Overwriting header: array[0] = array[0] + index, index2(reverse comp)
