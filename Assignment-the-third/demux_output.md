@@ -595,6 +595,6 @@ TGTTCCGT:TCGAGAGT	656
 TGTTCCGT:TCGGATTC	723
 TGTTCCGT:TCTTCGAC	2001
 ```
-
+## Output figures
 ![](matched_freq.png)
 ![](pi_distribution.png)
